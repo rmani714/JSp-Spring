@@ -37,14 +37,14 @@ pageContext.setAttribute("playerList", playerList);
 				</tr>
 				<c:forEach var="tmpPlayer" items="${playerList}">
 				<c:url var="tempURL" value="PlayerServlet">
-				<c:param name="action" value="LOAD"></c:param>
-				<c:param name="p_id" value="${tmpPlayer.id}"></c:param>
+					<c:param name="action" value="LOAD"></c:param>
+					<c:param name="p_id" value="${tmpPlayer.id}"></c:param>
 				</c:url>
 					<tr>
 						<td>${tmpPlayer.id}</td>
 						<td>${tmpPlayer.name}</td>
 						<td>${tmpPlayer.rank}</td>
-						<td><a href="tempURL" /> update </td>
+						<td><a href="${tempURL}" /> update </td>
 					</tr>
 				</c:forEach>
 				<%-- <% for (Player tmpPlayer : playerList) {%>

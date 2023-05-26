@@ -61,11 +61,51 @@ public class PlayerServlet extends HttpServlet {
 					addPlayer(request, response);
 					break;
 				}
+				
+				case "LOAD": {
+						loadPlayer(request, response);
+					break;
+				}
+				
+				case "UPDATE": {
+					updatePlayer(request, response);
+				break;
+			}
 				default: {
 					getPlayerList(request, response);
 					break;
 				}
 			}
+	}
+
+	private void updatePlayer(HttpServletRequest request, HttpServletResponse response) {
+		try {
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String rank = request.getParameter("rank");
+		Player player = new Player(Integer.parseInt(id), name, Integer.parseInt(rank));
+		String status = playerUtil.updatePlayer(player);
+		request.setAttribute("updatedStatus", status);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/update-player.jsp");
+			requestDispatcher.forward(request, response);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void loadPlayer(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			String playerId = request.getParameter("p_id");
+			Player player = playerUtil.loadPlayer(playerId);
+			request.setAttribute("updatePlayer", player);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/update-player.jsp");
+			requestDispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void addPlayer(HttpServletRequest request, HttpServletResponse response) {
